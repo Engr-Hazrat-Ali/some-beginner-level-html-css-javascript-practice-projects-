@@ -1,24 +1,29 @@
-const btnEl = document.getElementById("btn");
-const bmiInputEl = document.getElementById("bmi-result");
-const weightConditionEl = document.getElementById("weight-condition");
+const buttonsEl = document.querySelectorAll("button");
 
-function calculateBMI() {
-  const heightValue = document.getElementById("height").value / 100;
-  const weightValue = document.getElementById("weight").value;
+const inputFieldEl = document.getElementById("result");
 
-  const bmiValue = weightValue / (heightValue * heightValue);
-
-  bmiInputEl.value = bmiValue;
-
-  if (bmiValue < 18.5) {
-    weightConditionEl.innerText = "Under weight";
-  } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
-    weightConditionEl.innerText = "Normal weight";
-  } else if (bmiValue >= 25 && bmiValue <= 29.9) {
-    weightConditionEl.innerText = "Overweight";
-  } else if (bmiValue >= 30) {
-    weightConditionEl.innerText = "Obesity";
-  }
+for (let i = 0; i < buttonsEl.length; i++) {
+  buttonsEl[i].addEventListener("click", () => {
+    const buttonValue = buttonsEl[i].textContent;
+    if (buttonValue === "C") {
+      clearResult();
+    } else if (buttonValue === "=") {
+      calculateResult();
+    } else {
+      appendValue(buttonValue);
+    }
+  });
 }
 
-btnEl.addEventListener("click", calculateBMI);
+function clearResult() {
+  inputFieldEl.value = "";
+}
+
+function calculateResult() {
+  inputFieldEl.value = eval(inputFieldEl.value);
+}
+
+function appendValue(buttonValue) {
+  inputFieldEl.value += buttonValue;
+  //   inputFieldEl.value = inputFieldEl.value + buttonValue;
+}
